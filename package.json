@@ -1,12 +1,15 @@
 {
    "name": "cap6PaaS",
    "version": "1.0.0",
-   "main": "index.js",
    "author": "Jae <jaeladu1@gmail.com>",
    "license": "MIT",
    "scripts": {
-      "dev:back": "npx nodemon ./src/back/index.ts",
-      "dev:front": "parcel serve ./src/index.html"
+      "dev:back": "npx nodemon --watch ./src/back/index.ts --exec 'ts-node ./src/dev.ts'",
+      "dev:front": "parcel serve ./src/front/index.html",
+      "build:front": "parcel build ./src/front/index.html",
+      "build:back": "tsc",
+      "build": "yarn build:front && yarn build:back",
+      "start": "node './src/back/index.js'"
    },
    "dependencies": {
       "@vaadin/router": "^1.7.4",
@@ -20,6 +23,7 @@
       "@types/cors": "^2.8.12",
       "@types/node": "^18.11.9",
       "@types/randomcolor": "^0.5.6",
+      "dotenv": "^16.0.3",
       "nodemon": "^2.0.20",
       "parcel": "^2.7.0",
       "process": "^0.11.10"

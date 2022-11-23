@@ -2,10 +2,16 @@ import express, { json } from "express";
 import cors from "cors";
 import { firestore, rtdb } from "./dataBase";
 
+const PORT = process.env.PORT || 3000;
+const ROOT_PATH = __dirname.replace("src/back", "");
 const app = express();
+
 app.use(json());
 app.use(cors());
 
+app.get("/up", (req, res) => {
+   res.send("Server UP");
+});
 app.post("/signup", async (req, res) => {
    let exists = await firestore
       .collection("/users")
@@ -102,4 +108,14 @@ app.post("/messages", (req, res) => {
    res.send(response);
 });
 
-app.listen(3000, () => console.log("listening on port 3000"));
+app.use(express.static("dist"));
+
+app.get("*", (req, res) => {
+   res.sendFile(ROOT_PATH + "dist/index.html");
+});
+
+app.listen(PORT, () =>
+   console.log(
+      `listening on port ${PORT} and the environment is ${process.env.ENVIRONMENT}`
+   )
+);

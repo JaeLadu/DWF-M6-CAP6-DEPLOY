@@ -2,7 +2,7 @@ import randomColor from "randomcolor";
 import { rtdb } from "./dataBase";
 import { ref, onValue } from "firebase/database";
 
-const BACKENDURL = "http://localhost:3000";
+const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:3000";
 
 const state = {
    data: {
@@ -23,7 +23,7 @@ const state = {
       //si la función recibe un email, pide el id del usuario al back usando el mail y en la misma linea usa
       //la funcion .json() para parsear la respuesta
       if (email) {
-         const response = await fetch(`${BACKENDURL}/signin`, {
+         const response = await fetch(`${BACKEND_URL}/signin`, {
             method: "post",
             headers: {
                "Content-Type": "application/json",
@@ -62,7 +62,7 @@ const state = {
       this.data.user = { ...user, color: randomColor() };
       //guarda el user en la base de datos y recibe el id en userId
       const userId = await (
-         await fetch(`${BACKENDURL}/signup`, {
+         await fetch(`${BACKEND_URL}/signup`, {
             method: "post",
             headers: {
                "Content-Type": "application/json",
@@ -85,7 +85,7 @@ const state = {
    async setNewRoom(user) {
       //mando un post para crear el nuevo room, parseo la respuesta y la guardo en roomId, todo en la misma linea
       const roomId = await (
-         await fetch(`${BACKENDURL}/rooms`, {
+         await fetch(`${BACKEND_URL}/rooms`, {
             method: "post",
             headers: {
                "Content-Type": "application/json",
@@ -102,7 +102,7 @@ const state = {
       //en parametro y lo devuelve
       try {
          const roomId = await (
-            await fetch(`${BACKENDURL}/rooms/${shortId}?userId=${userId}`)
+            await fetch(`${BACKEND_URL}/rooms/${shortId}?userId=${userId}`)
          ).json();
          this.setLocalRoom({ shortId, longId: roomId });
       } catch (e) {
@@ -140,7 +140,7 @@ const state = {
    },
    async pushMessage(message: string) {
       //Manda el mensaje al backend para que lo escriba en la rtdb
-      fetch(`${BACKENDURL}/messages`, {
+      fetch(`${BACKEND_URL}/messages`, {
          method: "POST",
          headers: {
             "Content-Type": "application/json",
