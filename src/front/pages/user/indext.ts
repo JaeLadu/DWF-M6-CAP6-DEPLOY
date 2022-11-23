@@ -1,4 +1,4 @@
-import { Router } from "@vaadin/router";
+import * as vaadin from "@vaadin/router";
 import { state } from "../../state";
 
 function initUserPage() {
@@ -38,7 +38,7 @@ function initUserPage() {
 
             if (connected) {
                //si todo sale bien, redirecciona a la página de chat
-               Router.go("/chat");
+               vaadin.Router.go("/chat");
                return;
             } else {
                form.setAttribute("incorrectId", "true");
