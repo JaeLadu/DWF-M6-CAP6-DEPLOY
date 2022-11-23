@@ -3,6 +3,7 @@
    "version": "1.0.0",
    "author": "Jae <jaeladu1@gmail.com>",
    "license": "MIT",
+   "browserlists":["> 0.5%, last 2 versions, not dead"],
    "scripts": {
       "dev:back": "npx nodemon --watch ./src/back/index.ts --exec 'ts-node ./src/dev.ts'",
       "dev:front": "parcel serve ./src/front/index.html",
