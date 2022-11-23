@@ -6,7 +6,7 @@
    "scripts": {
       "dev:back": "npx nodemon --watch ./src/back/index.ts --exec 'ts-node ./src/dev.ts'",
       "dev:front": "parcel serve ./src/front/index.html",
-      "build:front": "parcel build ./src/front/index.html",
+      "build:front": "npx parcel build ./src/front/index.html",
       "build:back": "tsc",
       "build": "yarn build:front && yarn build:back",
       "start": "node './src/back/index.js'"
